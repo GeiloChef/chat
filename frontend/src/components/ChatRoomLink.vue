@@ -25,7 +25,8 @@
 export default {
     name: 'ChatRoomList',
     data: function () {
-        let linkToImages = "http://localhost:3001/pp/"
+        const API_URL = process.env.VUE_APP_BACKEND_URL || "/"
+        let linkToImages = API_URL + "pp/"
         return {
             image: linkToImages + this.chat.image,
             sender: "",
@@ -47,9 +48,9 @@ export default {
         let time = new Date(this.chat.time)
         let timeString = String(time.getHours()).padStart(2, '0') + ":" + String(time.getMinutes()).padStart(2, '0')
         let now = new Date(Date.now())
-        if( time.getDate() !== now.getDate() || time.getMonth() !== now.getMonth() || time.getFullYear() !== now.getFullYear() ){
-            timeString = String(`${time.getDate()}.${time.getMonth()+1}.${time.getFullYear()} `) + timeString;
-        } 
+        if (time.getDate() !== now.getDate() || time.getMonth() !== now.getMonth() || time.getFullYear() !== now.getFullYear()) {
+            timeString = String(`${time.getDate()}.${time.getMonth() + 1}.${time.getFullYear()} `) + timeString;
+        }
         this.chatroomTime = timeString;
         // Display Typing info
         console.log(this.chat.isTyping);
@@ -98,9 +99,9 @@ a {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.time{
-        float: right;
+
+.time {
+    float: right;
     margin-right: 1rem;
 }
-
 </style>
