@@ -6,11 +6,15 @@
                     <img :src="image" />
                 </div>
                 <div class="roomInfoParent">
-                    <span class="chatListName">{{ chat.roomname }}</span>
+                    <div>
+                        <span class="chatListName">{{ chat.roomname }}</span>
+                        <span class="time"> {{ chatroomTime }}</span>
+                    </div>
                     <span v-if="this.chat.isTyping" class="isTyping">is typing...</span>
-                    <span v-if="!this.chat.isTyping" class="lastMessage" :class="chat.lastMessage.class"> {{ sender }} {{
-                            chat.lastMessage.message
-                    }}</span>
+                    <span v-if="!this.chat.isTyping" class="lastMessage" :class="chat.lastMessage.class"> {{ sender }}
+                        {{
+                                chat.lastMessage.message
+                        }}</span>
                 </div>
             </div>
         </router-link>
@@ -25,6 +29,7 @@ export default {
         return {
             image: linkToImages + this.chat.image,
             sender: "",
+            chatroomTime: "",
         }
     },
     props: {
@@ -38,6 +43,14 @@ export default {
         } else {
             this.sender = "";
         }
+        // Generate Display for time & Date in the chat overview
+        let time = new Date(this.chat.time)
+        let timeString = String(time.getHours()).padStart(2, '0') + ":" + String(time.getMinutes()).padStart(2, '0')
+        let now = new Date(Date.now())
+        if( time.getDate() !== now.getDate() || time.getMonth() !== now.getMonth() || time.getFullYear() !== now.getFullYear() ){
+            timeString = String(`${time.getDate()}.${time.getMonth()+1}.${time.getFullYear()} `) + timeString;
+        } 
+        this.chatroomTime = timeString;
         // Display Typing info
         console.log(this.chat.isTyping);
         if (this.chat.isTyping) {
@@ -66,6 +79,7 @@ a {
 
 .roomInfoParent {
     display: grid;
+    flex: 1;
 }
 
 .isTyping {
@@ -84,4 +98,9 @@ a {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.time{
+        float: right;
+    margin-right: 1rem;
+}
+
 </style>
