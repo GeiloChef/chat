@@ -32,9 +32,9 @@ const mysql = require('mysql2/promise');
  */
  const connection = async function () {
     return mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
         database: 'chat',
     });
 }
