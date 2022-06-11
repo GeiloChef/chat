@@ -6,9 +6,11 @@
                     <img :src="image" />
                 </div>
                 <div class="roomInfoParent">
-                <span class="chatListName">{{ chat.roomname }}</span>
-                <span v-if="this.chat.isTyping" class="isTyping">is typing...</span>
-                <span v-if="!this.chat.isTyping" class="lastMessage" :class="chat.lastMessage.class" > {{sender}} {{ chat.lastMessage.message }}</span>
+                    <span class="chatListName">{{ chat.roomname }}</span>
+                    <span v-if="this.chat.isTyping" class="isTyping">is typing...</span>
+                    <span v-if="!this.chat.isTyping" class="lastMessage" :class="chat.lastMessage.class"> {{ sender }} {{
+                            chat.lastMessage.message
+                    }}</span>
                 </div>
             </div>
         </router-link>
@@ -31,14 +33,14 @@ export default {
     created() {
         console.log("created");
         // generate last message display
-        if(this.chat.lastMessage.sender_uuid === window.localStorage.getItem("uuid")){
+        if (this.chat.lastMessage.sender_uuid === window.localStorage.getItem("uuid")) {
             this.sender = "You:";
-        }else{
+        } else {
             this.sender = "";
         }
-         // Display Typing info
+        // Display Typing info
         console.log(this.chat.isTyping);
-        if(this.chat.isTyping){
+        if (this.chat.isTyping) {
             clearTimeout(this.isTypingTimeout);
             this.displayIsTyping = true;
             this.isTypingTimeout = setTimeout(() => {
@@ -56,24 +58,30 @@ a {
     color: white;
 }
 
-.chatListName{
+.chatListName {
     color: $cyan-process;
     font-size: 125%;
     font-weight: bolder;
 }
 
-.roomInfoParent{
+.roomInfoParent {
     display: grid;
 }
 
-.isTyping{
+.isTyping {
     color: $cyan-process
 }
 
-.unseen{
+.unseen {
     color: $cyan-process;
     font-size: 100%;
     font-weight: bolder;
     font-style: italic;
+}
+
+.lastMessage {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>

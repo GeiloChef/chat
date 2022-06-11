@@ -57,7 +57,7 @@ export default {
         let timestamp = new Date(this.message.time);
         this.timeSent = `${String(timestamp.getHours()).padStart(2, '0')}:${String(timestamp.getMinutes()).padStart(2, '0')}`
     },
-    beforeUpdate(){
+    beforeUpdate() {
         if (this.message.sender_uuid === localStorage.getItem('uuid')) {
             this.messageClass = 'ownMessage';
             if (this.message.seen === 0) {
@@ -78,6 +78,7 @@ export default {
     padding: 2%;
     margin: 2% 0%;
     border-radius: 12px;
+    word-break: break-word;
 }
 
 .ownMessage {

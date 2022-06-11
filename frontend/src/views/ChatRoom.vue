@@ -15,9 +15,10 @@
 
         </div>
         <div class="input-parent flex">
-            <v-text-field ref="chatMessage" v-model="chatMessage" label="Message" placeholder="" autocomplete="false" outlined clearable
-                hide-details="auto" id="test" @input="userIsTyping" @keyup.enter="sendChatMessage">
-            </v-text-field>
+            <v-textarea class="messageInput" rows="1" auto-grow multi-line ref="chatMessage" v-model="chatMessage" label="Message"
+                placeholder="" autocomplete="false" outlined clearable hide-details="auto" id="test"
+                @input="userIsTyping" @keyup.enter="sendChatMessage">
+            </v-textarea>
             <div class="sendBtn flex" @click="sendChatMessage"><span>Send</span></div>
             <!-- <v-btn @keypress.enter="sendChatMessage" @click="sendChatMessage" elevation="5">send</v-btn> -->
         </div>
@@ -60,7 +61,7 @@ export default {
     methods: {
         sendChatMessage: function () {
             console.log(this.chatMessage);
-            if(this.chatMessage === ""){
+            if (this.chatMessage === "") {
                 return;
             }
             let data = {
@@ -89,7 +90,7 @@ export default {
         },
 
         userIsTyping: function () {
-            console.log("typing...")
+            // console.log("typing...")
             let data = {
                 'chatroom': this.chatroomInfo,
                 'user': window.localStorage.getItem('uuid'),
