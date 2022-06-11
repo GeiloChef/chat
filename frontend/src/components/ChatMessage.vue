@@ -74,20 +74,20 @@ export default {
 .message-container {
     position: relative;
     width: 70%;
-    color: black;
+    color: white;
     padding: 2%;
     margin: 2% 0%;
     border-radius: 12px;
 }
 
 .ownMessage {
-    background-color: lightgreen;
+    background-color: #1d9d82;
     float: right;
     border-bottom-right-radius: 0px;
 }
 
 .foreignMessage {
-    background-color: lightgreen;
+    background-color: #303c3c;
     float: left;
     border-top-left-radius: 0px;
 }

@@ -15,8 +15,8 @@
 
         </div>
         <div class="input-parent flex">
-            <v-text-field ref="chatMessage" v-model="chatMessage" label="Message" placeholder="" outlined clearable
-                hide-details="auto" id="test" @input="userIsTyping" @keypress.enter="sendChatMessage">
+            <v-text-field ref="chatMessage" v-model="chatMessage" label="Message" placeholder="" autocomplete="false" outlined clearable
+                hide-details="auto" id="test" @input="userIsTyping" @keyup.enter="sendChatMessage">
             </v-text-field>
             <div class="sendBtn flex" @click="sendChatMessage"><span>Send</span></div>
             <!-- <v-btn @keypress.enter="sendChatMessage" @click="sendChatMessage" elevation="5">send</v-btn> -->
@@ -60,6 +60,9 @@ export default {
     methods: {
         sendChatMessage: function () {
             console.log(this.chatMessage);
+            if(this.chatMessage === ""){
+                return;
+            }
             let data = {
                 'uuid': uuid.v4(),
                 'message': this.chatMessage,
@@ -195,12 +198,13 @@ export default {
 
     .input-parent {
         flex: 0 1 3rem;
+        border-top: 2px solid $cyan-process
     }
 }
 
 .chat-history-parent {
     width: 100vw;
-    background: lightblue;
+    background: $eerie-black;
     padding: 2%;
     display: flex;
     flex-direction: column-reverse;
@@ -214,7 +218,7 @@ export default {
 .sendBtn {
     width: 15vw;
     // border-radius: 0 1rem 1rem 0;
-    border: 1px solid $cyan-process;
+    border-left: 1px solid $cyan-process;
     height: 100%;
 }
 
