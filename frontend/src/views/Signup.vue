@@ -6,15 +6,15 @@
                 <Form @submit="handleSignup" :validation-schema="schema">
                     <div class="input-parent flex">
                         <div class="input-child flex">
-                            <Field v-model="username" name="username" type="text" value="user1" />
+                            <Field v-model="username" name="username" type="text" value="" placeholder="Username" />
                             <ErrorMessage name="username" />
                         </div>
                         <div class="input-child flex">
-                            <Field v-model="email" name="email" type="text" value="1@1.de" />
+                            <Field v-model="email" name="email" type="text" value="" placeholder="E-Mail Adress"/>
                             <ErrorMessage name="username" />
                         </div>
                         <div class="input-child flex">
-                            <Field name="password" type="text" value="password1" />
+                            <Field name="password" type="text" value="" placeholder="Password"/>
                             <ErrorMessage name="password" />
                         </div>
                         <div class="button-child flex">
@@ -62,7 +62,7 @@ export default {
             showForm: true,
             message: "",
             schema,
-            username: "user1",
+            username: "",
         };
     },
     methods: {
