@@ -78,6 +78,7 @@ export default {
             if (response.roomsActive.length > 0) {
                 let newChats = response.roomsActive.map(function (chat) {
                     if (chat.lastMessage) {
+                        chat.lastMessage.message = JSON.parse(chat.lastMessage.message);
                         chat.time = chat.lastMessage.time;
                         if (chat.lastMessage.seen === 0) {
                             chat.lastMessage.class = "unseen";

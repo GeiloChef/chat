@@ -2,7 +2,7 @@
     <div :class="messageClass" class="message-container">
         <!-- <v-expand-transition mode="in" hide-on-leave="false"></v-expand-transition> -->
         <span class="message">
-            {{ message.message }}
+            {{ JSON.parse(message.message) }}
         </span>
 
         <div class="message-info flex">
@@ -53,6 +53,7 @@ export default {
                     });
             }
         }
+        console.log(JSON.parse(this.message.message));
         console.log(this.messageClass);
         let timestamp = new Date(this.message.time);
         this.timeSent = `${String(timestamp.getHours()).padStart(2, '0')}:${String(timestamp.getMinutes()).padStart(2, '0')}`
@@ -96,6 +97,7 @@ export default {
 .message {
     width: 100%;
     display: block;
+    white-space: pre-wrap;
 }
 
 .message-info {

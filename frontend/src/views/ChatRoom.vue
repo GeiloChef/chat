@@ -15,10 +15,14 @@
 
         </div>
         <div class="input-parent flex">
-            <v-textarea class="messageInput" rows="1" auto-grow multi-line ref="chatMessage" v-model="chatMessage" label="Message"
-                placeholder="" autocomplete="false" outlined clearable hide-details="auto" id="test"
-                @input="userIsTyping" @keyup.enter="sendChatMessage">
+
+            <v-textarea class="messageInput" rows="1" auto-grow multi-line ref="chatMessage" v-model="chatMessage"
+                label="Message" placeholder="" autocomplete="false" outlined clearable hide-details="auto" id="test"
+                @input="userIsTyping" @keydown.enter.exact="sendChatMessage">
             </v-textarea>
+            <!-- <div class="emoji">
+                <discord-picker  @emoji="setEmoji" />
+            </div> -->
             <div class="sendBtn flex" @click="sendChatMessage"><span>Send</span></div>
             <!-- <v-btn @keypress.enter="sendChatMessage" @click="sendChatMessage" elevation="5">send</v-btn> -->
         </div>
@@ -27,8 +31,10 @@
 
 <script>
 import { uuid } from "vue-uuid";
+// import DiscordPicker from 'vue3-discordpicker'
 
 import ChatDbAPI from "@/services/chatdb-api.service.js";
+import messageHandler from "@/mixins/messageHandler";
 
 import SocketioService from '../services/socketio.service.ts';
 import ChatMessage from '@/components/ChatMessage.vue';
@@ -38,8 +44,10 @@ export default {
     name: 'ChatRoom',
     components: {
         ChatMessage,
-        ChatRoomHeader
+        ChatRoomHeader,
+        // DiscordPicker
     },
+    mixins: [messageHandler],
     data: function () {
         let chatHistory = new Array();
 
@@ -59,14 +67,19 @@ export default {
         socket: Object,
     },
     methods: {
+        setEmoji(emoji) {
+            this.chatMessage += emoji;
+        },
         sendChatMessage: function () {
             console.log(this.chatMessage);
-            if (this.chatMessage === "") {
-                return;
-            }
+            let formatedMessage = this.formatMessage(this.chatMessage);
+            console.log(formatedMessage.length);
+            if (formatedMessage === "" || formatedMessage === null || !formatedMessage || formatedMessage.length === 2) {
+                console.log("leer");
+            }else{
             let data = {
                 'uuid': uuid.v4(),
-                'message': this.chatMessage,
+                'message': formatedMessage,
                 'sender_uuid': localStorage.getItem('uuid'),
                 'sender_username': localStorage.getItem('user'),
                 'room': this.$route.params.room,
@@ -87,6 +100,7 @@ export default {
 
             // Keep the input focused (especially for mobile user)
             document.getElementById('test').focus();
+            }
         },
 
         userIsTyping: function () {
@@ -230,5 +244,9 @@ export default {
     font-style: italic;
     display: flex;
     align-items: flex-end;
+}
+
+.emoji {
+    width: 12%;
 }
 </style>
