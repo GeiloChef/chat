@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-const API_URL = process.env.VUE_APP_BACKEND_URL || "";
+const API_URL = process.env.VUE_APP_BACKEND_URL || "/";
 
 
 class SocketioService {

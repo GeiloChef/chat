@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const API_URL = process.env.VUE_APP_BACKEND_URL || "";
+const API_URL = process.env.VUE_APP_BACKEND_URL || "/";
 
 class AuthService {
     constructor() {
 
     }
     async login(user) {
+        console.log(API_URL);
         return axios.post(API_URL + 'login', {
             email: user.email,
             password: user.password,
