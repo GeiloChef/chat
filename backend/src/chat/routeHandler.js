@@ -43,17 +43,12 @@ async function getChatroomsForUser(req, res){
  * @param {*} req includes the message data to be stored
  * @param {*} res 
  */
-async function storeMessage(req, res){
-    const { data } = req.body;
-    // console.log(data);
+async function storeMessage(data){
     messageHandler.insertMessageToDb(data);
-    res.send({status: "success"}).end();
 }
 
-async function setMessageAsSeen(req, res){
-    const { uuid_message } = req.body;
+async function setMessageAsSeen(uuid_message){
     messageHandler.setMessageAsSeen(uuid_message.message);
-    res.send({status: "success"}).end();
 }
 
 /**

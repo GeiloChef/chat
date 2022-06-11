@@ -87,13 +87,13 @@ export default {
 
         userIsTyping: function () {
             console.log("typing...")
-            let data =  {
+            let data = {
                 'chatroom': this.chatroomInfo,
                 'user': window.localStorage.getItem('uuid'),
                 'username': window.localStorage.getItem('user')
             }
             SocketioService.userIsTyping(data);
-            
+
         }
     },
     created() {
@@ -114,7 +114,7 @@ export default {
         this.socket.on('another user is typing', (data) => {
             this.userTyping.status = true;
             this.userTyping.username = data.user;
-            if(this.userTypingTimeout){
+            if (this.userTypingTimeout) {
                 clearTimeout(this.userTypingTimeout)
             }
             this.userTypingTimeout = setTimeout(() => {
@@ -143,29 +143,29 @@ export default {
             })
             this.chatHistory = newChatHistory;
         });
-        
-        // Get Chat History
-        ChatDbAPI.getChatHistory(this.$route.params.room).then(response => {
-            console.log(response.chatHistory)
-            if (response.chatHistory.length > 0) {
-                // Array needs to be reversed to be in the right order in the chat
-                for (let message of response.chatHistory.reverse()) {
-                    this.chatHistory.push(message)
-                }
-            }
-
-        });
 
         // Get Chatroom Information
         ChatDbAPI.getChatroomInfo(this.$route.params.room).then(response => {
             if (response.status === "success") {
                 console.log(response.chatroomInfo);
                 this.chatroomInfo = response.chatroomInfo;
+                // Get Chat History
+                ChatDbAPI.getChatHistory(this.$route.params.room).then(response => {
+                    console.log(response.chatHistory)
+                    if (response.chatHistory.length > 0) {
+                        // Array needs to be reversed to be in the right order in the chat
+                        for (let message of response.chatHistory.reverse()) {
+                            this.chatHistory.push(message)
+                        }
+                    }
+
+                });
             } else {
                 this.$parent.$emit('triggerAlert', response);
             }
 
         });
+
     },
     beforeUnmount() {
         this.socket.emit('leaveRoom', { room: window.localStorage.getItem('room'), user: window.localStorage.getItem('uuid') });

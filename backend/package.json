@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.16",
-    "sharp": "^0.30.6"
+    "sharp": "^0.30.6",
+    "socket.io": "^4.5.1"
   }
 }

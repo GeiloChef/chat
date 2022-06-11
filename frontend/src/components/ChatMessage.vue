@@ -34,7 +34,7 @@ export default {
         chatroomInfo: Object,
         socket: Object,
     },
-    created() {
+    mounted() {
         if (this.message.sender_uuid === localStorage.getItem('uuid')) {
             this.messageClass = 'ownMessage';
             if (this.message.seen === 0) {
@@ -48,7 +48,7 @@ export default {
                 this.socket.emit('message seen',
                     {
                         'message': this.message.uuid,
-                        'room': this.chatroomInfo,
+                        'chatroom': this.chatroomInfo,
                     });
             }
         }

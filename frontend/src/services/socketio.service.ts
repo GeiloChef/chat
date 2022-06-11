@@ -18,7 +18,7 @@ class SocketioService {
 
 
         // this.socket = io('http://localhost:3000')
-        this.socket = io('http://localhost:3000', {
+        this.socket = io('http://localhost:3001', {
             query: {token},
         })
 

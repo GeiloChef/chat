@@ -61,10 +61,10 @@ export default {
                     chat.lastMessage = data;
                     chat.lastMessage.class = "unseen";
                 }
-                chat.lastMessage.time = new Date(chat.lastMessage.time);
+                chat.time = new Date(chat.lastMessage.time);
                 return chat;
             })
-            this.chats = newChats.sort((a, b) => (a.lastMessage.time < b.lastMessage.time) ? 1 : ((b.lastMessage.time < a.lastMessage.time) ? -1 : 0));
+            this.chats = newChats.sort((a, b) => (a.time < b.time) ? 1 : ((b.time < a.time) ? -1 : 0));
             console.log(this.chats);
         });
 
@@ -75,15 +75,26 @@ export default {
     mounted() {
         let uuid = localStorage.getItem("uuid");
         ChatDbAPI.getChatroomsForUser(uuid).then(response => {
-            console.log(response.roomsActive)
             if (response.roomsActive.length > 0) {
                 let newChats = response.roomsActive.map(function (chat) {
-                    if (chat.lastMessage.seen === 0) {
-                        chat.lastMessage.class = "unseen";
+                    if (chat.lastMessage) {
+                        chat.time = chat.lastMessage.time;
+                        if (chat.lastMessage.seen === 0) {
+                            chat.lastMessage.class = "unseen";
+                        }
+                    } else {
+                        chat.time = chat.created_at;
+                        chat.lastMessage = {
+                            message: "Start to chat now!",
+                            class: "system",
+                            sender_uuid: "system",
+                        }
+
                     }
                     return chat;
                 })
-                this.chats = newChats.sort((a, b) => (a.lastMessage.time < b.lastMessage.time) ? 1 : ((b.lastMessage.time < a.lastMessage.time) ? -1 : 0));
+                this.chats = newChats.sort((a, b) => (a.time < b.time) ? 1 : ((b.time < a.time) ? -1 : 0));
+                console.log(this.chats);
                 this.showMessage = false;
             } else {
                 this.showMessage = true;
