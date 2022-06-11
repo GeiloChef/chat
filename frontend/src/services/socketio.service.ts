@@ -1,4 +1,6 @@
 import { io } from 'socket.io-client';
+const API_URL = process.env.VUE_APP_BACKEND_URL || "";
+
 
 class SocketioService {
     socket;
@@ -18,7 +20,7 @@ class SocketioService {
 
 
         // this.socket = io('http://localhost:3000')
-        this.socket = io('http://localhost:3001', {
+        this.socket = io(API_URL, {
             query: {token},
         })
 
