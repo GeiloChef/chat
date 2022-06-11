@@ -174,7 +174,8 @@ export default {
                 ChatDbAPI.storeNewProfilePicture(formData).then(response => {
                     this.$parent.$emit('triggerAlert', response);
                     if (response.status === "success") {
-                        let linkToImages = "http://localhost:3001/pp/"
+                        const API_URL = process.env.VUE_APP_BACKEND_URL || "/"
+                        let linkToImages = API_URL + "pp/"
                         let profilePicture = linkToImages + response.image;
                         this.profilePicture = profilePicture;
                     }
@@ -198,7 +199,8 @@ export default {
             } else {
                 this.username = response.username;
                 this.email = response.email;
-                let linkToImages = "http://localhost:3001/pp/"
+                const API_URL = process.env.VUE_APP_BACKEND_URL || "/"
+                let linkToImages = API_URL + "pp/"
                 this.profilePicture = linkToImages + response.image;
                 this.uuid_user = response.uuid;
             }

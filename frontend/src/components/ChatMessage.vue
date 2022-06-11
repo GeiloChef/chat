@@ -34,7 +34,7 @@ export default {
         chatroomInfo: Object,
         socket: Object,
     },
-    mounted() {
+    created() {
         if (this.message.sender_uuid === localStorage.getItem('uuid')) {
             this.messageClass = 'ownMessage';
             if (this.message.seen === 0) {
@@ -45,6 +45,7 @@ export default {
         } else {
             this.messageClass = 'foreignMessage';
             if (this.message.seen === 0 || this.message.seen === "0") {
+                // console.log("seen");
                 this.socket.emit('message seen',
                     {
                         'message': this.message.uuid,
@@ -52,6 +53,7 @@ export default {
                     });
             }
         }
+        console.log(this.messageClass);
         let timestamp = new Date(this.message.time);
         this.timeSent = `${String(timestamp.getHours()).padStart(2, '0')}:${String(timestamp.getMinutes()).padStart(2, '0')}`
     },

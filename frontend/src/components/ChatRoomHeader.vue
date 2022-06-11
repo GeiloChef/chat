@@ -10,9 +10,9 @@
             <div class="chatRoomName">
                 {{ room_name }}
             </div>
-            <div class="openMenu">
+            <!-- <div class="openMenu">
                 <img :src="openMenu_Icon" />
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -39,7 +39,9 @@ export default {
             if (response.status === "success") {
                 console.log(response)
                 this.room_name = response.room_name;
-                this.room_image = "http://localhost:3001/pp/" + response.room_image;
+                const API_URL = process.env.VUE_APP_BACKEND_URL || "/"
+                let linkToImages = API_URL + "pp/"
+                this.room_image = linkToImages + response.room_image;
             } else {
                 this.$parent.$emit('triggerAlert', response);
             }

@@ -48,7 +48,7 @@ export default {
                 return chat;
             })
             this.chats = newChats;
-            console.log(this.chats);
+            // console.log(this.chats);
         });
 
         this.socket.on('notify new message', (data) => {
@@ -65,7 +65,7 @@ export default {
                 return chat;
             })
             this.chats = newChats.sort((a, b) => (a.time < b.time) ? 1 : ((b.time < a.time) ? -1 : 0));
-            console.log(this.chats);
+            // console.log(this.chats);
         });
 
         this.socket.on('notify seen message', (data) => {

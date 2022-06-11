@@ -16,9 +16,9 @@
         </div>
         <div class="input-parent flex">
             <v-text-field ref="chatMessage" v-model="chatMessage" label="Message" placeholder="" outlined clearable
-                hide-details="auto" id="test" @input="userIsTyping">
+                hide-details="auto" id="test" @input="userIsTyping" @keypress.enter="sendChatMessage">
             </v-text-field>
-            <div class="sendBtn flex" @keypress.enter="sendChatMessage" @click="sendChatMessage"><span>Send</span></div>
+            <div class="sendBtn flex" @click="sendChatMessage"><span>Send</span></div>
             <!-- <v-btn @keypress.enter="sendChatMessage" @click="sendChatMessage" elevation="5">send</v-btn> -->
         </div>
     </div>
@@ -124,7 +124,8 @@ export default {
             console.log(data);
         })
 
-        this.socket.on('message was seen', (data) => {
+        this.socket.on('update message history', (data) => {
+            console.log(data);
             let newChatHistory = this.chatHistory.map(function (message) {
                 let seenStatus = message.seen;
                 if (message.uuid === data.message_uuid) {
@@ -212,7 +213,7 @@ export default {
 
 .sendBtn {
     width: 15vw;
-    border-radius: 0 1rem 1rem 0;
+    // border-radius: 0 1rem 1rem 0;
     border: 1px solid $cyan-process;
     height: 100%;
 }
