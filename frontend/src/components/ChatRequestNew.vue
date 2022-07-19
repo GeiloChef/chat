@@ -35,6 +35,7 @@ export default {
             console.log(this.newRequestUserUUID);
             if (this.newRequestUserUUID !== localStorage.getItem("uuid") && this.newRequestUserUUID !== "" && this.newRequestUserUUID) {
                 ChatDbAPI.sendChatRequest(localStorage.getItem("uuid"), this.newRequestUserUUID).then(response => {
+                    
                     this.$parent.$emit('triggerAlert', response);
                 });
             }

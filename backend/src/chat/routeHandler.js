@@ -133,10 +133,11 @@ async function sendChatRequest(req, res){
 
     let createChatRequest = await chatRoomHandler.insertChatRequestToDb(uuid_from, uuid_to);
     console.log(`create chat: ${createChatRequest}`)
-    if(createChatRequest){
+    if(createChatRequest.status === "success"){
         res.send({
             status: "success",
             message: 'Chat request was successfully sent.',
+            uuid: createChatRequest.uuid,
         }).end();
     }else{
         res.send({

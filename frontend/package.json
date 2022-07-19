@@ -16,6 +16,8 @@
     "vee-validate": "^4.5.11",
     "vue": "^3.2.13",
     "vue-cookies": "^1.8.1",
+    "vue-image-lightbox": "^7.2.0",
+    "vue-lazyload": "^3.0.0-rc.2",
     "vue-router": "^4.0.15",
     "vue-uuid": "^3.0.0",
     "vue3-discordpicker": "^1.1.0",

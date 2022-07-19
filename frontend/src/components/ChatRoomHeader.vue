@@ -18,8 +18,10 @@
 
 </template>
 
+
 <script>
 import ChatDbAPI from "@/services/chatdb-api.service.js";
+
 
 export default {
     name: "ChatRoomHeader",
@@ -30,6 +32,9 @@ export default {
             room_name: "",
             room_image: "",
         }
+    },
+    components: {
+        LightBox
     },
     props: {
         chatroomInfo: Object,

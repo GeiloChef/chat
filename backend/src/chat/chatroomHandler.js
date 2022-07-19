@@ -72,7 +72,16 @@ async function insertChatRequestToDb(uuid_from, uuid_to) {
         'INSERT INTO `requests` (uuid, uuid_from, uuid_to) VALUES (?, ? , ?)',
         [uuid, uuid_from, uuid_to]);
     con.end();
-    return (insert ? true : false)
+    if(insert){
+        return {
+            status: "success",
+            uuid: uuid,
+        }
+    }else{
+        return {
+            status: "error"
+        }
+    }
 
 }
 
