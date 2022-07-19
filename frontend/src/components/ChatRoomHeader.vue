@@ -34,7 +34,6 @@ export default {
         }
     },
     components: {
-        LightBox
     },
     props: {
         chatroomInfo: Object,
