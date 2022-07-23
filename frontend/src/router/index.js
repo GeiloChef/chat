@@ -13,6 +13,11 @@ import DesktopInformation from "@/views/DesktopInformation.vue";
 
 const routes = [
     {
+        path: "/",
+        name: "Home",
+        // component: Login,
+    },
+    {
         path: "/login",
         name: "Login",
         component: Login,
@@ -62,13 +67,18 @@ router.beforeEach((to, from, next) => {
      * Check if is Mobile, otherwise redirect to a info page
      * that the site is only available on mobile
      */
-    if (to.name !== 'DesktopInformation' && !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+    if (to.name === "Home") {
+        next({ 'name': 'Login' });
+    }
+
+    if (to.name !== 'DesktopInformation' &&
+        !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
         next({ 'name': 'DesktopInformation' });
         console.log('redirect desktop')
-    }else{
+    } else {
         next();
     }
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         /**
         * Redirect a User if his JWT Token is not valid
         */
